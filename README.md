@@ -13,10 +13,11 @@ Bellabeat is a high-tech company that manufactures health-focused smart products
 ## 📂 Repository Structure
 *   `SQL_Queries/`: Contains all the SQL scripts used for data extraction, cleaning, and aggregation (e.g., handling missing values, extracting hourly trends, segmenting user activity).
 *   `Visualizations/`: Contains snapshots of the Tableau dashboard.
+*   `Presentation/`: Includes the executive presentation deck (HTML/PDF format) designed to communicate the strategic recommendations to stakeholders during the "Act" phase.
 
 ## 📊 Tableau Interactive Dashboard
 Explore the interactive dashboard showcasing the core insights here:
-🔗 **[https://public.tableau.com/views/Bellabeat_Smart_Device_Analysis_17875472877500/Dashboard2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link]**
+🔗 **https://public.tableau.com/views/Bellabeat_Smart_Device_Analysis_17875472877500/Dashboard2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link**
 
 ## 💡 Key Data Insights
 1. **The Sedentary Majority:** Surprisingly, 40% of the active users fall into the "Sedentary" (low activity) category. This indicates that the largest market segment consists of individuals with desk-bound routines, not necessarily highly active athletes.
