@@ -1,0 +1,142 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "insights",
+  "position": {
+    "x": 856,
+    "y": 472,
+    "z": 14,
+    "width": 400,
+    "height": 232,
+    "tabOrder": 14
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Key insights",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "11pt",
+                      "color": "#1F2937"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "40% of users are sedentary. ",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "10pt",
+                      "color": "#1F2937"
+                    }
+                  },
+                  {
+                    "value": "Position Bellabeat as a micro-habit coach, not workout gear.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "16.6 hours a day sitting. ",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "10pt",
+                      "color": "#1F2937"
+                    }
+                  },
+                  {
+                    "value": "Only about 30 minutes of moderate-to-vigorous activity.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "13% of days show zero steps. ",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "10pt",
+                      "color": "#1F2937"
+                    }
+                  },
+                  {
+                    "value": "The device is often not worn; lead with comfort (Leaf).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Tuesday is the low point (4.9k steps). ",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "10pt",
+                      "color": "#1F2937"
+                    }
+                  },
+                  {
+                    "value": "Use it for reminders and step challenges.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,4 @@
+relationship 751e426d-8d02-48ac-b96f-354eb41506b9
+	fromColumn: DailyActivity.Id
+	toColumn: Users.Id
+

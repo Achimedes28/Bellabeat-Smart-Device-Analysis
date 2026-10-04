@@ -1,0 +1,77 @@
+table Measures
+	lineageTag: 2cc2708c-db7f-4e64-82ef-99623a6c4ed5
+
+	/// Distinct users in the current filter context.
+	measure 'Total Users' = DISTINCTCOUNT ( DailyActivity[Id] )
+		formatString: #,0
+		lineageTag: 93bc6db5-5cfd-470a-adc9-807157c2aaa5
+
+	/// Number of user-days recorded.
+	measure 'Days Tracked' = COUNTROWS ( DailyActivity )
+		formatString: #,0
+		lineageTag: 943d16ab-b408-43dc-b36a-87a47a59569a
+
+	/// Average steps per user-day.
+	measure 'Avg Daily Steps' = AVERAGE ( DailyActivity[TotalSteps] )
+		formatString: #,0
+		lineageTag: 69a9c9f4-3a13-4466-bfd6-5f743e77febb
+
+	/// Average calories burned per user-day.
+	measure 'Avg Daily Calories' = AVERAGE ( DailyActivity[Calories] )
+		formatString: #,0
+		lineageTag: 936bcc5e-fc4c-4e7a-85fd-8a49633c9eb2
+
+	/// Average sedentary hours per user-day.
+	measure 'Sedentary Hours / Day' = DIVIDE ( AVERAGE ( DailyActivity[SedentaryMinutes] ), 60 )
+		formatString: #,0.0
+		lineageTag: 262e1c82-553e-4dd6-9b71-01c5aca8e507
+
+	/// Average very + fairly active minutes per user-day (moderate-to-vigorous activity).
+	measure 'Active Minutes / Day' = AVERAGE ( DailyActivity[VeryActiveMinutes] ) + AVERAGE ( DailyActivity[FairlyActiveMinutes] )
+		formatString: #,0
+		lineageTag: da2ecc4d-a480-49ba-a339-0aa0b6e11b22
+
+	/// Share of user-days that reached 10,000 steps.
+	measure '% Days 10k+ Steps' = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] >= 10000 ), [Days Tracked] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 54fb466d-38dd-4688-8a60-dd645ec1ed43
+
+	/// Share of user-days with zero steps, a proxy for the device not being worn.
+	measure '% Days Not Worn' = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] = 0 ), [Days Tracked] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2a324694-533a-4680-9bc3-be5a65414906
+
+	/// Share of users in the selected segment.
+	measure '% of Users' = DIVIDE ( [Total Users], CALCULATE ( [Total Users], REMOVEFILTERS ( Users[Segment] ) ) )
+		formatString: 0%;-0%;0%
+		lineageTag: ad95dacf-1351-47cc-889f-bf46eafd1d81
+
+	/// Share of user-days in each step band.
+	measure '% of Days' = DIVIDE ( [Days Tracked], CALCULATE ( [Days Tracked], REMOVEFILTERS ( DailyActivity[Step Band] ) ) )
+		formatString: 0%;-0%;0%
+		lineageTag: fdf0c8be-d6e5-4050-a111-5fff3a86d341
+
+	/// Average minutes per user-day for the intensity on the axis.
+	measure 'Avg Minutes by Intensity' = SWITCH ( SELECTEDVALUE ( Intensity[Intensity] ), "Very Active", AVERAGE ( DailyActivity[VeryActiveMinutes] ), "Fairly Active", AVERAGE ( DailyActivity[FairlyActiveMinutes] ), "Lightly Active", AVERAGE ( DailyActivity[LightlyActiveMinutes] ), "Sedentary", AVERAGE ( DailyActivity[SedentaryMinutes] ) )
+		formatString: #,0
+		lineageTag: ec44f6eb-7696-4268-aca0-1eef39beab08
+
+	column Value
+		dataType: string
+		lineageTag: 97e25134-843b-4bf8-bbe0-83a1733ccd2e
+		summarizeBy: none
+		sourceColumn: Value
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Value = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,35 @@
+/// Disconnected helper table used to show minutes by intensity in one chart.
+table Intensity
+	lineageTag: 0325b496-df61-4c05-983e-c093c0d43c9d
+
+	column Intensity
+		dataType: string
+		lineageTag: 3b55ecea-c41f-434b-89dd-c47d7a25e9d5
+		summarizeBy: none
+		sourceColumn: Intensity
+		sortByColumn: 'Intensity Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Intensity Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 24d9daae-f5d3-4097-ac59-7d05f08d484a
+		summarizeBy: none
+		sourceColumn: Intensity Order
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Intensity = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        type table [Intensity = text, #"Intensity Order" = Int64.Type],
+				        {{"Very Active", 1}, {"Fairly Active", 2}, {"Lightly Active", 3}, {"Sedentary", 4}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

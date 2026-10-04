@@ -1,0 +1,213 @@
+{
+  "name": "CY24SU10",
+  "dataColors": [
+    "#3E5C76",
+    "#B85C74",
+    "#8A99A8",
+    "#C9D1D9",
+    "#1F2937",
+    "#D9A5B3",
+    "#5E7A92",
+    "#A3ADB8"
+  ],
+  "foreground": "#1F2937",
+  "foregroundNeutralSecondary": "#6B7280",
+  "foregroundNeutralTertiary": "#9CA3AF",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F3F4F6",
+  "backgroundNeutral": "#E5E7EB",
+  "tableAccent": "#3E5C76",
+  "good": "#3E7C5A",
+  "neutral": "#B7892F",
+  "bad": "#B5473A",
+  "maximum": "#3E5C76",
+  "center": "#C9D1D9",
+  "minimum": "#F3F4F6",
+  "textClasses": {
+    "callout": {
+      "fontSize": 26,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F2937"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F2937"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F2937"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#6B7280"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E5E7EB"
+              }
+            },
+            "radius": 8
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "padding": [
+          {
+            "top": 12,
+            "bottom": 12,
+            "left": 16,
+            "right": 16
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontSize": 11,
+            "fontColor": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "fontFamily": "Segoe UI Semibold",
+            "alignment": "left"
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ],
+        "valueAxis": [
+          {
+            "gridlineShow": true,
+            "gridlineColor": {
+              "solid": {
+                "color": "#EEF0F2"
+              }
+            },
+            "gridlineStyle": "solid",
+            "labelColor": {
+              "solid": {
+                "color": "#9CA3AF"
+              }
+            },
+            "showAxisTitle": false
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "showAxisTitle": false,
+            "gridlineShow": false
+          }
+        ],
+        "legend": [
+          {
+            "show": false
+          }
+        ],
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#374151"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F7F7F8"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F7F7F8"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "fontSize": 24,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "categoryLabels": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "textbox": {
+      "*": {
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ]
+      }
+    }
+  }
+}

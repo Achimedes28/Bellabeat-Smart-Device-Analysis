@@ -1,0 +1,6 @@
+/// Folder that contains dailyActivity_merged.csv. Must end with a backslash.
+expression DataFolder = "C:\Bellabeat-Smart-Device-Analysis\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 88550a17-5c97-48ad-9694-9c691cab7a62
+
+	annotation PBI_ResultType = Text
+
