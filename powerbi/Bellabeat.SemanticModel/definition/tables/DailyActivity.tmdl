@@ -1,0 +1,218 @@
+table DailyActivity
+	lineageTag: e8548274-b69f-4b88-8792-038a2bd31116
+
+	column Id
+		dataType: string
+		lineageTag: c08b5744-d6e6-4def-b3e4-35ff2e0e3cdb
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivityDate
+		dataType: dateTime
+		formatString: d mmm yyyy
+		lineageTag: 1f3bdbbb-91c5-47c4-948d-663391082c62
+		summarizeBy: none
+		sourceColumn: ActivityDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalSteps
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6b01d4c2-6f8e-4172-9b01-ecd398299ecd
+		summarizeBy: sum
+		sourceColumn: TotalSteps
+
+		annotation SummarizationSetBy = Automatic
+
+	column VeryActiveMinutes
+		dataType: int64
+		formatString: #,0
+		lineageTag: e4a63ed8-9954-4710-8c14-e50441512ce3
+		summarizeBy: sum
+		sourceColumn: VeryActiveMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column FairlyActiveMinutes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 913455f0-fcd3-48af-861b-63b5b11dce4a
+		summarizeBy: sum
+		sourceColumn: FairlyActiveMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column LightlyActiveMinutes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 84e5708d-2c69-4d23-8126-ee80ff5bce58
+		summarizeBy: sum
+		sourceColumn: LightlyActiveMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column SedentaryMinutes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0c65a349-46dd-4602-b00f-4481f2391286
+		summarizeBy: sum
+		sourceColumn: SedentaryMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Calories
+		dataType: int64
+		formatString: #,0
+		lineageTag: b3360e8c-147a-4e5c-acb2-1c172647c3c5
+		summarizeBy: sum
+		sourceColumn: Calories
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 6dffc2dd-84c1-4d37-8b12-6ed11860a583
+		summarizeBy: sum
+		sourceColumn: TotalDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrackerDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: cf01c472-378b-40c1-b83a-1a4c04c8de3a
+		summarizeBy: sum
+		sourceColumn: TrackerDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoggedActivitiesDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: dd7e7c35-8018-459d-bd25-9b92d74e72ce
+		summarizeBy: sum
+		sourceColumn: LoggedActivitiesDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column VeryActiveDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1f96162b-00af-420e-8885-1e8fef4d743e
+		summarizeBy: sum
+		sourceColumn: VeryActiveDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModeratelyActiveDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 3ea07b9d-ffa6-4b1d-a858-b88d5a4dbca8
+		summarizeBy: sum
+		sourceColumn: ModeratelyActiveDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column LightActiveDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1b1665b9-9f41-4ea1-a1ca-49e54f45b664
+		summarizeBy: sum
+		sourceColumn: LightActiveDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SedentaryActiveDistance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 3f8df0d5-81f8-4b6a-a0ef-d8a863d63374
+		summarizeBy: sum
+		sourceColumn: SedentaryActiveDistance
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		dataType: string
+		lineageTag: 6f000ea6-30c0-4999-b49a-e625b1e4ced3
+		summarizeBy: none
+		sourceColumn: Weekday
+		sortByColumn: 'Weekday Num'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Short'
+		dataType: string
+		lineageTag: 9c36746f-d1d1-466a-ac40-4ee323b6d9ae
+		summarizeBy: none
+		sourceColumn: Weekday Short
+		sortByColumn: 'Weekday Num'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Num'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dd592b2-5b3f-4f79-b2d4-437639bc71f6
+		summarizeBy: none
+		sourceColumn: Weekday Num
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Step Band'
+		dataType: string
+		lineageTag: f27ac497-0876-44f2-b8bd-4b61b0fb99cd
+		summarizeBy: none
+		sourceColumn: Step Band
+		sortByColumn: 'Step Band Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Step Band Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9013ecf6-c870-473f-9313-a1f2c70bb7e1
+		summarizeBy: none
+		sourceColumn: Step Band Order
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DailyActivity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dailyActivity_merged.csv"), [Delimiter = ",", Columns = 15, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"Id", type text}, {"ActivityDate", type date}, {"TotalSteps", Int64.Type}, {"VeryActiveMinutes", Int64.Type}, {"FairlyActiveMinutes", Int64.Type}, {"LightlyActiveMinutes", Int64.Type}, {"SedentaryMinutes", Int64.Type}, {"Calories", Int64.Type}, {"TotalDistance", type number}, {"TrackerDistance", type number}, {"LoggedActivitiesDistance", type number}, {"VeryActiveDistance", type number}, {"ModeratelyActiveDistance", type number}, {"LightActiveDistance", type number}, {"SedentaryActiveDistance", type number}}, "en-US"),
+				    Weekday = Table.AddColumn(Typed, "Weekday", each Date.DayOfWeekName([ActivityDate], "en-US"), type text),
+				    WeekdayShort = Table.AddColumn(Weekday, "Weekday Short", each Text.Start([Weekday], 3), type text),
+				    WeekdayNum = Table.AddColumn(WeekdayShort, "Weekday Num", each Date.DayOfWeek([ActivityDate], Day.Monday) + 1, Int64.Type),
+				    StepBand = Table.AddColumn(WeekdayNum, "Step Band", each
+				        if [TotalSteps] = 0 then "0 (not worn)"
+				        else if [TotalSteps] < 5000 then "< 5k"
+				        else if [TotalSteps] < 7500 then "5k–7.5k"
+				        else if [TotalSteps] < 10000 then "7.5k–10k"
+				        else "10k+", type text),
+				    StepBandOrder = Table.AddColumn(StepBand, "Step Band Order", each
+				        if [TotalSteps] = 0 then 1
+				        else if [TotalSteps] < 5000 then 2
+				        else if [TotalSteps] < 7500 then 3
+				        else if [TotalSteps] < 10000 then 4
+				        else 5, Int64.Type)
+				in
+				    StepBandOrder
+
+	annotation PBI_ResultType = Table
+

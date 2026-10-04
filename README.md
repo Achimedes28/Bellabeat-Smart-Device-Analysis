@@ -1,31 +1,49 @@
-# Bellabeat Data Analysis: Smart Device Usage Trends 🏃‍♀️💡
+# Bellabeat Smart Device Usage Analysis
 
-## 📌 Project Overview
-Bellabeat is a high-tech company that manufactures health-focused smart products for women. The goal of this data analytics portfolio project is to analyze smart device usage data (from non-Bellabeat consumers) to gain insights into how consumers use their smart devices. The findings are then translated into high-level recommendations for Bellabeat's marketing strategy.
+How do people use their fitness trackers, and what should Bellabeat's marketing team do about it?
+This case study analyses Fitbit activity data from 35 users to find usage patterns and turns them into three marketing recommendations.
 
-**Key Objective:** To identify usage patterns in physical activity and sleep monitoring to guide a targeted digital marketing campaign.
+![Power BI dashboard](images/dashboard_powerbi_preview.png)
 
-## 🛠️ Tools Used
-*   **Data Processing & Analysis:** SQL (SQLite)
-*   **Data Visualization & Storytelling:** Tableau Public
-*   **Presentation:** HTML / Slides
+**Tools:** SQL (SQLite) · Power BI (DAX, Power Query) · Tableau Public · PowerPoint
 
-## 📂 Repository Structure
-*   `SQL_Queries/`: Contains all the SQL scripts used for data extraction, cleaning, and aggregation (e.g., handling missing values, extracting hourly trends, segmenting user activity).
-*   `Visualizations/`: Contains snapshots of the Tableau dashboard.
-*   `Presentation/`: Includes the executive presentation deck (HTML/PDF format) designed to communicate the strategic recommendations to stakeholders during the "Act" phase.
+## Key insights
 
-## 📊 Tableau Interactive Dashboard
-Explore the interactive dashboard showcasing the core insights here:
-🔗 **https://public.tableau.com/views/Bellabeat_Smart_Device_Analysis_17875472877500/Dashboard2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link**
+| | Finding | What it means for Bellabeat |
+|---|---|---|
+| 1 | **40% of users are sedentary** (< 5,000 steps a day on average). Users sit 16.6 hours a day and get only about 30 minutes of moderate-to-vigorous activity. | The biggest segment is desk-bound people, not athletes. |
+| 2 | **Activity peaks at 12:00 and 17:00–19:00**, around lunch and the commute home. | Timing of ads and notifications matters. |
+| 3 | **Tracking drops at night and on some days.** Only 23 of 35 users logged sleep, and 13% of tracked days show zero steps. | Comfort and wearability limit how much data users collect. |
 
-## 💡 Key Data Insights
-1. **The Sedentary Majority:** Surprisingly, 40% of the active users fall into the "Sedentary" (low activity) category. This indicates that the largest market segment consists of individuals with desk-bound routines, not necessarily highly active athletes.
-2. **Commuter Activity Peaks:** The intraday (hourly) step analysis reveals significant activity spikes at **12:00 PM** (lunch break) and between **5:00 PM - 7:00 PM** (commuting hours after work).
-3. **Nighttime Drop-off:** Out of the 35 daily active users, only 23 users tracked their sleep consistently. This 34% drop-off suggests discomfort in wearing traditional smartwatches to bed or removing them for battery charging.
+## Recommendations
 
-## 🎯 Strategic Marketing Recommendations (The "Act" Phase)
-Based on the analysis, I propose three strategic pillars for Bellabeat's marketing team:
-*   **Focus on Micro-Habits:** Since 40% of the audience is sedentary, marketing campaigns should position Bellabeat products (like the *Spring* bottle) as tools to build simple daily habits (e.g., hydration reminders or short walks), rather than intense workout gear.
-*   **Precision Ad Scheduling:** Allocate the maximum digital marketing budget (Google Ads/Instagram) at **11:30 AM** and **5:30 PM**. Pushing notifications or ads right before the users' peak activity windows will maximize engagement.
-*   **Highlight Sleep Tracking Comfort:** Capitalize on the nighttime drop-off by promoting the Bellabeat *Leaf*. Emphasize its lightweight, elegant design that can be comfortably clipped to pajamas, ensuring sleep tracking without wrist fatigue.
+1. **Sell micro-habits, not workouts.** Position products such as the *Spring* bottle as simple daily-habit tools (hydration, short walks).
+2. **Schedule campaigns before activity peaks.** Concentrate digital ad budget and push notifications around 11:30 and 17:30.
+3. **Lead with comfort for sleep tracking.** Promote the *Leaf* as a light clip-on that can be worn overnight.
+
+## Dashboards
+
+- **Power BI:** [`powerbi/Bellabeat.pbip`](powerbi/) — one-page overview with KPIs, user segments, weekday pattern, activity intensity and step bands. See the [Power BI guide](docs/powerbi-guide.md) to open it.
+- **Tableau Public:** [interactive dashboard](https://public.tableau.com/views/Bellabeat_Smart_Device_Analysis_17875472877500/Dashboard2) with the hourly activity curve ([snapshot](images/dashboard_tableau.png)).
+
+## Repository structure
+
+```
+├── data/            dailyActivity_merged.csv (Fitbit daily activity, 457 user-days)
+├── sql/             SQLite queries for cleaning checks, segmentation and aggregates
+├── powerbi/         Power BI Project (semantic model in TMDL, report in PBIR, theme)
+├── docs/            Power BI guide: data model, DAX measures, layout
+├── images/          dashboard previews
+└── presentation/    executive deck (PDF and PPTX)
+```
+
+## Data
+
+[FitBit Fitness Tracker Data](https://www.kaggle.com/datasets/arashnic/fitbit) (Möbius, CC0), Fitabase export for 12 March – 12 April 2016.
+This repository includes the daily activity table; the hourly steps and sleep tables used for insights 2 and 3 come from the same dataset.
+
+**Limitations:** small sample (35 users), one month of data, no demographic information, and the users are not necessarily Bellabeat's target customers. Findings are directional.
+
+## Method
+
+Follows the Google Data Analytics case-study flow: **Ask** (business task) → **Prepare** (source and credibility) → **Process** (type casting, duplicate and zero-step checks in SQL) → **Analyse** (segmentation, weekday and intensity patterns) → **Share** (Tableau, Power BI) → **Act** (recommendations and deck).

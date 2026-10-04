@@ -1,0 +1,72 @@
+/// One row per user. Segment uses average daily steps (Tudor-Locke step bands).
+table Users
+	lineageTag: 46f9493c-b7a1-4873-9c5b-b1229666607e
+
+	column Id
+		dataType: string
+		lineageTag: 904f356b-2e80-4f37-9cad-122d2b28510e
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Avg Steps'
+		dataType: double
+		formatString: #,0
+		lineageTag: becbf878-623a-4c28-a29e-28060306c3a5
+		summarizeBy: average
+		sourceColumn: User Avg Steps
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days Logged'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1afddd88-f431-4ecf-8c12-93b18e6416b9
+		summarizeBy: sum
+		sourceColumn: Days Logged
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 0ed5d1f8-d08d-42fe-b076-6bce38fa4337
+		summarizeBy: none
+		sourceColumn: Segment
+		sortByColumn: 'Segment Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3dcfc7b4-1bce-41d6-9252-4673c6f0dd8a
+		summarizeBy: none
+		sourceColumn: Segment Order
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Users = m
+		mode: import
+		source =
+				let
+				    Source = DailyActivity,
+				    Grouped = Table.Group(Source, {"Id"}, {
+				        {"User Avg Steps", each List.Average([TotalSteps]), type number},
+				        {"Days Logged", each Table.RowCount(_), Int64.Type}}),
+				    Segment = Table.AddColumn(Grouped, "Segment", each
+				        if [User Avg Steps] < 5000 then "Sedentary"
+				        else if [User Avg Steps] < 7500 then "Lightly Active"
+				        else if [User Avg Steps] < 10000 then "Fairly Active"
+				        else "Very Active", type text),
+				    SegmentOrder = Table.AddColumn(Segment, "Segment Order", each
+				        if [User Avg Steps] < 5000 then 1
+				        else if [User Avg Steps] < 7500 then 2
+				        else if [User Avg Steps] < 10000 then 3
+				        else 4, Int64.Type)
+				in
+				    SegmentOrder
+
+	annotation PBI_ResultType = Table
+
