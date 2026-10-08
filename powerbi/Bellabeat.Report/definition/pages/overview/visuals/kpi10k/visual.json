@@ -62,7 +62,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Days reaching 10k steps'"
+                  "Value": "'Worn days reaching 10k steps'"
                 }
               }
             }

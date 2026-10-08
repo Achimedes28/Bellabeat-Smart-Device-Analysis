@@ -36,29 +36,29 @@ powerbi/
 
 Relationship: `DailyActivity[Id]` (many) → `Users[Id]` (one), single direction.
 
-**Segments** (average daily steps per user): Sedentary < 5,000 · Lightly Active 5,000–7,499 · Fairly Active 7,500–9,999 · Very Active ≥ 10,000.
+**Segments** (average daily steps per user, worn days only; days with 0 steps mean the tracker was not worn): Sedentary < 5,000 · Lightly Active 5,000–7,499 · Fairly Active 7,500–9,999 · Very Active ≥ 10,000.
 
 ## DAX measures
 
 ```DAX
 Total Users              = DISTINCTCOUNT ( DailyActivity[Id] )
 Days Tracked             = COUNTROWS ( DailyActivity )
-Avg Daily Steps          = AVERAGE ( DailyActivity[TotalSteps] )
+Avg Daily Steps          = CALCULATE ( AVERAGE ( DailyActivity[TotalSteps] ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 Avg Daily Calories       = AVERAGE ( DailyActivity[Calories] )
-Sedentary Hours / Day    = DIVIDE ( AVERAGE ( DailyActivity[SedentaryMinutes] ), 60 )
-Active Minutes / Day     = AVERAGE ( DailyActivity[VeryActiveMinutes] ) + AVERAGE ( DailyActivity[FairlyActiveMinutes] )
-% Days 10k+ Steps        = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] >= 10000 ), [Days Tracked] )
+Sedentary Hours / Day    = CALCULATE ( DIVIDE ( AVERAGE ( DailyActivity[SedentaryMinutes] ), 60 ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
+Active Minutes / Day     = CALCULATE ( AVERAGE ( DailyActivity[VeryActiveMinutes] ) + AVERAGE ( DailyActivity[FairlyActiveMinutes] ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
+% Days 10k+ Steps        = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] >= 10000 ), CALCULATE ( [Days Tracked], KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) ) )
 % Days Not Worn          = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] = 0 ), [Days Tracked] )
 % of Users               = DIVIDE ( [Total Users], CALCULATE ( [Total Users], REMOVEFILTERS ( Users[Segment] ) ) )
 % of Days                = DIVIDE ( [Days Tracked], CALCULATE ( [Days Tracked], REMOVEFILTERS ( DailyActivity[Step Band] ) ) )
 Avg Minutes by Intensity =
-    SWITCH (
+    CALCULATE ( SWITCH (
         SELECTEDVALUE ( Intensity[Intensity] ),
         "Very Active",    AVERAGE ( DailyActivity[VeryActiveMinutes] ),
         "Fairly Active",  AVERAGE ( DailyActivity[FairlyActiveMinutes] ),
         "Lightly Active", AVERAGE ( DailyActivity[LightlyActiveMinutes] ),
         "Sedentary",      AVERAGE ( DailyActivity[SedentaryMinutes] )
-    )
+    ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 ```
 
 ## Page layout (1280 × 720)

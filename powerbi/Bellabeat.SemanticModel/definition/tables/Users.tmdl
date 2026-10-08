@@ -1,4 +1,4 @@
-/// One row per user. Segment uses average daily steps (Tudor-Locke step bands).
+/// One row per user. Segment uses average daily steps on worn days (Tudor-Locke step bands).
 table Users
 	lineageTag: 46f9493c-b7a1-4873-9c5b-b1229666607e
 
@@ -51,7 +51,9 @@ table Users
 		mode: import
 		source =
 				let
-				    Source = DailyActivity,
+				    // Days with 0 steps mean the tracker was not worn; they would drag a user's average down,
+				    // so segments use worn days only (34 users; one user never wore the tracker).
+				    Source = Table.SelectRows(DailyActivity, each [TotalSteps] > 0),
 				    Grouped = Table.Group(Source, {"Id"}, {
 				        {"User Avg Steps", each List.Average([TotalSteps]), type number},
 				        {"Days Logged", each Table.RowCount(_), Int64.Type}}),

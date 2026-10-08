@@ -11,8 +11,8 @@ table Measures
 		formatString: #,0
 		lineageTag: 943d16ab-b408-43dc-b36a-87a47a59569a
 
-	/// Average steps per user-day.
-	measure 'Avg Daily Steps' = AVERAGE ( DailyActivity[TotalSteps] )
+	/// Average steps per worn user-day (days with 0 steps are excluded as not worn).
+	measure 'Avg Daily Steps' = CALCULATE ( AVERAGE ( DailyActivity[TotalSteps] ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 		formatString: #,0
 		lineageTag: 69a9c9f4-3a13-4466-bfd6-5f743e77febb
 
@@ -21,18 +21,18 @@ table Measures
 		formatString: #,0
 		lineageTag: 936bcc5e-fc4c-4e7a-85fd-8a49633c9eb2
 
-	/// Average sedentary hours per user-day.
-	measure 'Sedentary Hours / Day' = DIVIDE ( AVERAGE ( DailyActivity[SedentaryMinutes] ), 60 )
+	/// Average sedentary hours per worn user-day. Fitbit also counts unlogged sleep as sedentary.
+	measure 'Sedentary Hours / Day' = CALCULATE ( DIVIDE ( AVERAGE ( DailyActivity[SedentaryMinutes] ), 60 ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 		formatString: #,0.0
 		lineageTag: 262e1c82-553e-4dd6-9b71-01c5aca8e507
 
-	/// Average very + fairly active minutes per user-day (moderate-to-vigorous activity).
-	measure 'Active Minutes / Day' = AVERAGE ( DailyActivity[VeryActiveMinutes] ) + AVERAGE ( DailyActivity[FairlyActiveMinutes] )
+	/// Average very + fairly active minutes per worn user-day (moderate-to-vigorous activity).
+	measure 'Active Minutes / Day' = CALCULATE ( AVERAGE ( DailyActivity[VeryActiveMinutes] ) + AVERAGE ( DailyActivity[FairlyActiveMinutes] ), KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 		formatString: #,0
 		lineageTag: da2ecc4d-a480-49ba-a339-0aa0b6e11b22
 
-	/// Share of user-days that reached 10,000 steps.
-	measure '% Days 10k+ Steps' = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] >= 10000 ), [Days Tracked] )
+	/// Share of worn user-days that reached 10,000 steps.
+	measure '% Days 10k+ Steps' = DIVIDE ( CALCULATE ( [Days Tracked], DailyActivity[TotalSteps] >= 10000 ), CALCULATE ( [Days Tracked], KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) ) )
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 54fb466d-38dd-4688-8a60-dd645ec1ed43
 
@@ -52,7 +52,7 @@ table Measures
 		lineageTag: fdf0c8be-d6e5-4050-a111-5fff3a86d341
 
 	/// Average minutes per user-day for the intensity on the axis.
-	measure 'Avg Minutes by Intensity' = SWITCH ( SELECTEDVALUE ( Intensity[Intensity] ), "Very Active", AVERAGE ( DailyActivity[VeryActiveMinutes] ), "Fairly Active", AVERAGE ( DailyActivity[FairlyActiveMinutes] ), "Lightly Active", AVERAGE ( DailyActivity[LightlyActiveMinutes] ), "Sedentary", AVERAGE ( DailyActivity[SedentaryMinutes] ) )
+	measure 'Avg Minutes by Intensity' = CALCULATE ( SWITCH ( SELECTEDVALUE ( Intensity[Intensity] ), "Very Active", AVERAGE ( DailyActivity[VeryActiveMinutes] ), "Fairly Active", AVERAGE ( DailyActivity[FairlyActiveMinutes] ), "Lightly Active", AVERAGE ( DailyActivity[LightlyActiveMinutes] ), "Sedentary", AVERAGE ( DailyActivity[SedentaryMinutes] ) ) , KEEPFILTERS ( DailyActivity[TotalSteps] > 0 ) )
 		formatString: #,0
 		lineageTag: ec44f6eb-7696-4268-aca0-1eef39beab08
 

@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "40% of users are sedentary. ",
+                    "value": "About a third of users are sedentary (12 of 34). ",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "10pt",
@@ -50,7 +50,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "16.6 hours a day sitting. ",
+                    "value": "15.7 sedentary hours per worn day. ",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "10pt",
@@ -58,7 +58,7 @@
                     }
                   },
                   {
-                    "value": "Only about 30 minutes of moderate-to-vigorous activity.",
+                    "value": "Includes unlogged sleep; about 32 minutes of moderate-to-vigorous activity.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#6B7280"
@@ -88,7 +88,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Tuesday is the low point (4.9k steps). ",
+                    "value": "Tuesday is the low point (6.0k steps). ",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "10pt",

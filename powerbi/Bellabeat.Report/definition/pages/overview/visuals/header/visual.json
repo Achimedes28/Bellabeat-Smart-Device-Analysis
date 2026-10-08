@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fitbit daily activity of 35 users, 12 Mar – 12 Apr 2016. Segments use each user's average daily steps.",
+                    "value": "Fitbit daily activity of 35 users, 12 Mar – 12 Apr 2016. Averages and segments use worn days only (days with 0 steps excluded).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#6B7280"

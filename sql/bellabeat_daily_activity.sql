@@ -15,18 +15,20 @@ FROM daily_activity
 GROUP BY Id, ActivityDate
 HAVING n > 1;                                               -- expect no rows
 
--- 2. Overall daily averages
+-- 2. Overall daily averages on worn days (0 steps = tracker not worn; those days are excluded)
 SELECT ROUND(AVG(TotalSteps), 0)                            AS avg_daily_steps,
        ROUND(AVG(Calories), 0)                              AS avg_daily_calories,
        ROUND(AVG(SedentaryMinutes) / 60.0, 1)               AS sedentary_hours_per_day,
        ROUND(AVG(VeryActiveMinutes + FairlyActiveMinutes), 1) AS active_minutes_per_day,
        ROUND(100.0 * AVG(CASE WHEN CAST(TotalSteps AS INTEGER) >= 10000 THEN 1 ELSE 0 END), 1) AS pct_days_10k
-FROM daily_activity;
+FROM daily_activity
+WHERE CAST(TotalSteps AS INTEGER) > 0;
 
--- 3. User segmentation by average daily steps
+-- 3. User segmentation by average daily steps on worn days
 WITH user_avg AS (
-    SELECT Id, AVG(TotalSteps) AS avg_steps
+    SELECT Id, AVG(CAST(TotalSteps AS INTEGER)) AS avg_steps
     FROM daily_activity
+    WHERE CAST(TotalSteps AS INTEGER) > 0
     GROUP BY Id
 )
 SELECT CASE
@@ -41,15 +43,16 @@ FROM user_avg
 GROUP BY segment
 ORDER BY segment;
 
--- 4. Average steps by weekday (ActivityDate is M/D/YYYY text in the raw file)
+-- 4. Average steps by weekday on worn days (ActivityDate is M/D/YYYY text in the raw file)
 WITH parsed AS (
-    SELECT TotalSteps,
+    SELECT CAST(TotalSteps AS INTEGER) AS TotalSteps,
            printf('%04d-%02d-%02d',
                   CAST(substr(ActivityDate, instr(ActivityDate, '/') + instr(substr(ActivityDate, instr(ActivityDate, '/') + 1), '/') + 1) AS INTEGER),
                   CAST(substr(ActivityDate, 1, instr(ActivityDate, '/') - 1) AS INTEGER),
                   CAST(substr(substr(ActivityDate, instr(ActivityDate, '/') + 1), 1, instr(substr(ActivityDate, instr(ActivityDate, '/') + 1), '/') - 1) AS INTEGER)
            ) AS activity_date
     FROM daily_activity
+    WHERE CAST(TotalSteps AS INTEGER) > 0
 )
 SELECT strftime('%w', activity_date)                        AS weekday_num,   -- 0 = Sunday
        ROUND(AVG(TotalSteps), 0)                            AS avg_steps
